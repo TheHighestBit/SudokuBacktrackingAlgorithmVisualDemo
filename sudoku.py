@@ -2,9 +2,13 @@ import pygame
 import time
 pygame.init()
 
-screen = pygame.display.set_mode((540, 540)) #Set window size in px
+window_width = 540 #px Make sure to also adjust the font size when changing this
+window_height = 540 #height should be the same as width
+
+screen = pygame.display.set_mode((window_width, window_height))
+pygame.display.set_caption("Backtracking algorithm")
 background = pygame.image.load('board.jpg').convert()
-background = pygame.transform.smoothscale(background, (540, 540))
+background = pygame.transform.smoothscale(background, (window_width, window_height))
 screen.blit(background, (0, 0))
 font = pygame.font.SysFont('arial', 50) #Set font and font size
 framerate = 0 #ms between each board update
@@ -78,7 +82,7 @@ def display_org_board():
             if num != 0:
                 text = font.render(str(num), True, (10, 10, 10))
                 text_rect = text.get_rect()
-                text_rect.center = (30 + row.index(num) * 60, 30 + i * 60) 
+                text_rect.center = ((window_width / 18) + row.index(num) * (window_width / 9), (window_width / 18) + i * (window_width / 9)) 
                 screen.blit(text, text_rect)
 
 def display_current_board():
@@ -90,7 +94,7 @@ def display_current_board():
             if num != 0 and num != org_puzzle[i][row.index(num)]:
                 text = font.render(str(num), True, (250, 0, 0))
                 text_rect = text.get_rect()
-                text_rect.center = (30 + row.index(num) * 60, 30 + i * 60) 
+                text_rect.center = ((window_width / 18) + row.index(num) * (window_width / 9), (window_width / 18) + i * (window_width / 9)) 
                 screen.blit(text, text_rect)
     time.sleep(framerate / 1000)
     pygame.display.update()
